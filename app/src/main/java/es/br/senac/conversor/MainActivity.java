@@ -6,20 +6,23 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
+import android.view.View;
 import java.util.Locale;
 
 //declarando uma classe
 //extends AppCompatActivity é uma herança de classe
+// é o classe MainActivity
+// é a herança extends
 public class MainActivity extends AppCompatActivity {
 
+    // declaração de uma variavél
+    // int significa inteiro
+    //=0 é de onde ela vai inicializar
     int alturaEmCentimetro=0;
 
-    private String formataValorComDoisDigitos(int valor){
-        String retorno = String.format(Locale.FRANCE,"%.2f", valor);
-        return "retorno da funçao";
 
-    }
+
+
 
     // metodo que declara o ciclo de criação da tela...
     //Override sobre escreve um metodo
@@ -30,47 +33,71 @@ public class MainActivity extends AppCompatActivity {
         // metodo que liga a Activity.java com o java
         setContentView(R.layout.activity_main);
 
-        setContentView(R.layout.activity_main);
 
-        final TextView textMetros = (TextView) findViewById(R.id.textMetros);
+        final TextView txtMetros = (TextView) findViewById(R.id.txtMetros);
 
-        textMetros.setText(String.valueOf(alturaEmCentimetro));
+        txtMetros.setText(String.valueOf(alturaEmCentimetro));
 
-        final TextView textAltura = (TextView) findViewById(R.id.textAltura);
+
 
         // textAltura.setText("asaasaa");
 
-        final TextView textPes = (TextView) findViewById(R.id.textPes);
+        final TextView txtPes = (TextView) findViewById(R.id.txtPes);
 
-        final SeekBar seekBar = (SeekBar)findViewById(R.id.skMetros);
+        final SeekBar seekBar4 = (SeekBar)findViewById(R.id.seekBar4);
+        seekBar4.setMax(230);
 
-        final Button button = (Button) findViewById(R.id.btmConverter);
-
-        seekBar.setMax(230);
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-
-                alturaEmCentimetro = progress;
-                //textMetros.setText(progress + "centimetro");
-
-                textMetros.setText(formataValorComDoisDigitos(20));
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+             txtPes.setText("Toque em Converter");
+            }
+
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                alturaEmCentimetro = progress;
+                //textMetros.setText(progress + "centimetro");
+                String texto = formataValorComDoisDigitos(progress / 100.0);
+                texto +="m.";
+
+                txtMetros.setText(texto);
 
             }
 
+
+
+        });
+
+        final Button btnConverter = (Button) findViewById(R.id.btnConverter);
+        btnConverter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onClick(View v) {
+                double alturaEmPes = alturaEmCentimetro / 30.48;
+                String texto = formataValorComDoisDigitos(alturaEmPes);
+                texto += "pé(s)";
+                txtPes.setText(texto);
+
 
             }
         });
 
 
+
+        }
+        //declarando um metodo ou função
+        // metodo protegido private só propria classe acessa e o protec a propia classe acessa e quem herda
+        //(double valor) é um argumeto da função
+      //formataValorComDoisDigitos é o nome da função
+    private String formataValorComDoisDigitos(double valor){
+
+        return String.format(Locale.FRANCE, "%.2f",valor);
     }
 }
 
