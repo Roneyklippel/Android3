@@ -26,21 +26,20 @@ public class MainActivity extends AppCompatActivity {
 
     // metodo que declara o ciclo de criação da tela...
     //Override sobre escreve um metodo
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //declaração de metodo
+        // quando tem super e o nome do metodo ele está indo no pai e buscando tudo que tem lá
         super.onCreate(savedInstanceState);
         // metodo que liga a Activity.java com o java
         setContentView(R.layout.activity_main);
 
-
+        // instancia de um elemento de texto do android
         final TextView txtMetros = (TextView) findViewById(R.id.txtMetros);
 
         txtMetros.setText(String.valueOf(alturaEmCentimetro));
-
-
-
-        // textAltura.setText("asaasaa");
+        
 
         final TextView txtPes = (TextView) findViewById(R.id.txtPes);
 
