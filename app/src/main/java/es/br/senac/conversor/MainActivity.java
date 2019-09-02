@@ -20,6 +20,13 @@ public class MainActivity extends AppCompatActivity {
     //=0 é de onde ela vai inicializar
     int alturaEmCentimetro=0;
 
+    int altura1=150;
+    int altura2=180;
+    int altura3=205;
+
+
+    int SeekBar;
+
 
 
 
@@ -39,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView txtMetros = (TextView) findViewById(R.id.txtMetros);
 
         txtMetros.setText(String.valueOf(alturaEmCentimetro));
-        
+
+        final TextView txtMedia = (TextView) findViewById(R.id.txtMedia);
 
         final TextView txtPes = (TextView) findViewById(R.id.txtPes);
 
@@ -59,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
 
                 alturaEmCentimetro = progress;
                 //textMetros.setText(progress + "centimetro");
                 String texto = formataValorComDoisDigitos(progress / 100.0);
                 texto +="m.";
-
+                SeekBar = progress;
                 txtMetros.setText(texto);
 
             }
@@ -83,7 +91,16 @@ public class MainActivity extends AppCompatActivity {
                 texto += "pé(s)";
                 txtPes.setText(texto);
 
+               int media = calcularMedia(altura1,altura2,altura3);
 
+               if (SeekBar > media){
+                   txtMedia.setText("Alto");
+
+               }else if(SeekBar==media){
+                   txtMedia.setText("Na média");
+               }else{
+                   txtMedia.setText("Baixo");
+               }
             }
         });
 
@@ -93,10 +110,14 @@ public class MainActivity extends AppCompatActivity {
         //declarando um metodo ou função
         // metodo protegido private só propria classe acessa e o protec a propia classe acessa e quem herda
         //(double valor) é um argumeto da função
-      //formataValorComDoisDigitos é o nome da função
+      //formataValorComDoisDigitos é o nome da função (ou metodo)
     private String formataValorComDoisDigitos(double valor){
-
+        //convertendo a String em double
         return String.format(Locale.FRANCE, "%.2f",valor);
+    }
+
+    private int calcularMedia (int valor1, int valor2, int valor3){
+        return (valor1+valor2+valor3) / 3;
     }
 }
 
