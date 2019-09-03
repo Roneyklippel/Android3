@@ -20,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
     //=0 é de onde ela vai inicializar
     int alturaEmCentimetro=0;
 
-    int altura1=150;
-    int altura2=180;
-    int altura3=205;
+    int altura1=130;
+    int altura2=150;
+    int altura3=200;
 
 
-    int SeekBar;
+
 
 
 
@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         txtMetros.setText(String.valueOf(alturaEmCentimetro));
 
-        final TextView txtMedia = (TextView) findViewById(R.id.txtMedia);
+
 
         final TextView txtPes = (TextView) findViewById(R.id.txtPes);
-
+        final TextView txtMedia = (TextView) findViewById(R.id.txtMedias);
         final SeekBar seekBar4 = (SeekBar)findViewById(R.id.seekBar4);
         seekBar4.setMax(230);
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 //textMetros.setText(progress + "centimetro");
                 String texto = formataValorComDoisDigitos(progress / 100.0);
                 texto +="m.";
-                SeekBar = progress;
+
                 txtMetros.setText(texto);
 
             }
@@ -91,12 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 texto += "pé(s)";
                 txtPes.setText(texto);
 
-               int media = calcularMedia(altura1,altura2,altura3);
+              int media = calcularMedia(altura1,altura2,altura3);
+              txtMedia.setText(""+ media );
 
-               if (SeekBar > media){
+               if (alturaEmCentimetro > media){
                    txtMedia.setText("Alto");
 
-               }else if(SeekBar==media){
+               }else if(alturaEmCentimetro == media){
                    txtMedia.setText("Na média");
                }else{
                    txtMedia.setText("Baixo");
